@@ -37,6 +37,8 @@ Partial Class Form1
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaInicialToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BtnCarpeta = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.GroupAcciones.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -63,6 +65,7 @@ Partial Class Form1
         '
         'GroupAcciones
         '
+        Me.GroupAcciones.Controls.Add(Me.BtnCarpeta)
         Me.GroupAcciones.Controls.Add(Me.Label1)
         Me.GroupAcciones.Controls.Add(Me.BtnDescarga)
         Me.GroupAcciones.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -134,6 +137,16 @@ Partial Class Form1
         Me.AyudaInicialToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AyudaInicialToolStripMenuItem.Text = "Ayuda inicial"
         '
+        'BtnCarpeta
+        '
+        Me.BtnCarpeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCarpeta.Location = New System.Drawing.Point(492, 12)
+        Me.BtnCarpeta.Name = "BtnCarpeta"
+        Me.BtnCarpeta.Size = New System.Drawing.Size(220, 38)
+        Me.BtnCarpeta.TabIndex = 2
+        Me.BtnCarpeta.Text = "Cambiar Carpeta Destino"
+        Me.BtnCarpeta.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -166,4 +179,6 @@ Partial Class Form1
     Friend WithEvents AyudaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AcercaDeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AyudaInicialToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BtnCarpeta As Button
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

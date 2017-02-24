@@ -43,6 +43,7 @@ Public Class Form1
     Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupAcciones.Enter
 
     End Sub
+    Dim FormPB As New Form2
 
     Private Sub BtnDescarga_Click_1(sender As Object, e As EventArgs) Handles BtnDescarga.Click
         Dim htmlDocument As HtmlDocument = wb.Document
@@ -75,31 +76,48 @@ Public Class Form1
         wc.Headers.Add(HttpRequestHeader.Cookie, GetGlobalCookies(wb.Document.Url.ToString))
 
         If (ListEnlacesFacs.Items.Count > 500) Then
-            MessageBox.Show("La consulta realizada solo muestra las primeras 500 facturas, se recomienda hacer los periodo de busqueda más cortos", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MessageBox.Show("La consulta realizada solo muestra las primeras 500 facturas, 
+se recomienda hacer los periodos de búsqueda más cortos", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             'Verificamos el directorio de salida
         ElseIf (ListEnlacesFacs.Items.Count > 0) Then
             Label1.Text = "Descarga en proceso. Espere por favor"
+            Dim isCarpetaValida As Boolean = False
+            While (Not isCarpetaValida)
+                If (Not System.IO.Directory.Exists(Directorio)) Then
+                    Try
+                        System.IO.Directory.CreateDirectory(Directorio)
+                    Catch ex As DirectoryNotFoundException
+                        MessageBox.Show("No se puede acceder a la carpeta seleccionada, elija una otra para poder continuar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        SeleccionarCarpeta()
+                    End Try
+                Else
+                    isCarpetaValida = True
 
-            If (Not System.IO.Directory.Exists(Directorio)) Then
-                System.IO.Directory.CreateDirectory(Directorio)
-            End If
+                End If
+
+            End While
             'Creamos un nuevo folder por cada busqueda realizada
             fecha = DateTime.Now.ToString("yyyyMM-dd-HH mm ss")
             If (Not System.IO.Directory.Exists(Directorio & "\" & fecha & "\")) Then
                 System.IO.Directory.CreateDirectory(Directorio & "\" & fecha & "\")
             End If
+            BackgroundWorker1.WorkerReportsProgress = True
+            BackgroundWorker1.RunWorkerAsync()
+            FormPB.ShowDialog()
             'recorro el listBox y voy descargando uno por uno
             For i = 0 To ListEnlacesFacs.Items.Count - 1
-                ' Label1.Text = "Descarga en proceso. " & i + 1 & "/" & ListEnlacesFacs.Items.Count
+                FormPB.SetLabel1Text("Progreso: " & i + 1 & "/" & ListEnlacesFacs.Items.Count & " Facturas")
+
+                reportProgress(i, ListEnlacesFacs.Items.Count)
                 URI = ListEnlacesFacs.Items.Item(i).ToString.Trim
                 Debug.Print(Directorio & "\" & fecha & "\CFDi-N" & (i + 1) & ".xml")
                 wc.DownloadFile(URI, Directorio & "\" & fecha & "\CFDi-N" & (i + 1) & ".xml")
             Next
-            MessageBox.Show("Se descargaron correctamente: " & ListEnlacesFacs.Items.Count & " elementos.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information
+            MessageBox.Show("Se descargaron correctamente: " & ListEnlacesFacs.Items.Count & " elementos.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information
                            )
             'limpiamos nuestra lista por si queremos ingresar otra busqueda
         Else
-            MessageBox.Show("La busqueda no muestra elementos para descargar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("La búsqueda no muestra elementos para descargar", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
         End If
         ListEnlacesFacs.Items.Clear()
@@ -107,29 +125,32 @@ Public Class Form1
 
         GroupAcciones.Visible = False
     End Sub
-
+    Dim pagesNum As Integer = 0
+    Dim passwordLogin As Boolean = False
     Private Sub wb_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles wb.DocumentCompleted
-        Dim passwordLogin As Boolean = False
-        'Ir a Login de RFC Y contraseaña
-        If (NOT passwordLogin) Then
-            Dim linkFound As Boolean = False
-            Dim passwordLoginLink As HtmlElement = Nothing
-            For Each passwordLoginLink In wb.Document.Links
-                If passwordLoginLink.InnerText IsNot Nothing _
-                AndAlso passwordLoginLink.InnerText.ToString.Trim = "Contraseña" Then
-                    linkFound = True
-                    Exit For
-                End If
-            Next
+        'En primera instancia nos manda al login con RFC y contraseña
+        If pagesNum < 2 Then
 
-            If (linkFound) Then
-                passwordLoginLink.Focus()
-                SendKeys.Send("{ENTER}")
-                passwordLogin = True
+            If (Not passwordLogin) Then
+                Dim linkFound As Boolean = False
+                Dim passwordLoginLink As HtmlElement = Nothing
+                For Each passwordLoginLink In wb.Document.Links
+                    If passwordLoginLink.InnerText IsNot Nothing _
+                    AndAlso passwordLoginLink.InnerText.ToString.Trim = "Contraseña" Then
+                        linkFound = True
+                        Exit For
+                    End If
+                Next
+
+                If (linkFound) Then
+                    passwordLoginLink.Focus()
+                    SendKeys.Send("{ENTER}")
+                    passwordLogin = True
+                End If
             End If
         End If
 
-
+        'Verificamos a que hacemos clic
         Dim htmlDocument As HtmlDocument = wb.Document
         GroupAcciones.Visible = False
         AddHandler htmlDocument.Body.MouseDown, New HtmlElementEventHandler(AddressOf wb_MouseDown)
@@ -137,6 +158,7 @@ Public Class Form1
     End Sub
 
     Private Sub wb_MouseDown(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
+        'En caso de hacer clic en el boton de Buscar CFDI Mostraremos el grupo de acciones.
         Select Case (e.MouseButtonsPressed)
 
             Case MouseButtons.Left
@@ -178,4 +200,35 @@ Public Class Form1
     Private Sub MostrarAyudaInicial()
         'TODO
     End Sub
+
+    Private Sub AyudaInicialToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AyudaInicialToolStripMenuItem.Click
+        MostrarAyudaInicial()
+    End Sub
+
+    Private Sub BtnCarpeta_Click(sender As Object, e As EventArgs) Handles BtnCarpeta.Click
+        SeleccionarCarpeta()
+    End Sub
+
+    Private Sub BackgroundWorker1_ProgressChanged(ByVal sender As System.Object,
+ ByVal e As System.ComponentModel.ProgressChangedEventArgs) _
+ Handles BackgroundWorker1.ProgressChanged
+
+        FormPB.ProgressBar1.Value = e.ProgressPercentage
+
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(ByVal sender As System.Object,
+ ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) _
+ Handles BackgroundWorker1.RunWorkerCompleted
+
+        FormPB.Close()
+
+    End Sub
+
+    Private Sub reportProgress(i As Integer, total As Integer)
+        Dim progress As Integer = Math.Floor(i / total * 100)
+        BackgroundWorker1.ReportProgress(progress)
+
+    End Sub
+
 End Class
