@@ -85,14 +85,15 @@ Public Class Form1
             End If
             'Creamos un nuevo folder por cada busqueda realizada
             fecha = DateTime.Now.ToString("yyyyMM-dd-HH mm ss")
-            If (Not System.IO.Directory.Exists(Directorio & fecha & "\")) Then
-                System.IO.Directory.CreateDirectory(Directorio & fecha & "\")
+            If (Not System.IO.Directory.Exists(Directorio & "\" & fecha & "\")) Then
+                System.IO.Directory.CreateDirectory(Directorio & "\" & fecha & "\")
             End If
             'recorro el listBox y voy descargando uno por uno
             For i = 0 To ListEnlacesFacs.Items.Count - 1
                 ' Label1.Text = "Descarga en proceso. " & i + 1 & "/" & ListEnlacesFacs.Items.Count
                 URI = ListEnlacesFacs.Items.Item(i).ToString.Trim
-                wc.DownloadFile(URI, Directorio & fecha & "\CFDi-N" & (i + 1) & ".xml")
+                Debug.Print(Directorio & "\" & fecha & "\CFDi-N" & (i + 1) & ".xml")
+                wc.DownloadFile(URI, Directorio & "\" & fecha & "\CFDi-N" & (i + 1) & ".xml")
             Next
             MessageBox.Show("Se descargaron correctamente: " & ListEnlacesFacs.Items.Count & " elementos.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information
                            )
@@ -152,19 +153,29 @@ Public Class Form1
     End Sub
 
     Private Sub FirstRun()
+        SeleccionarCarpeta()
+        MostrarAyudaInicial()
+        My.Settings.isFirstRun = False
+        My.Settings.Save()
+    End Sub
+
+    Private Sub CarpetaDeGuardadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CarpetaDeGuardadoToolStripMenuItem.Click
+        SeleccionarCarpeta()
+    End Sub
+
+    Private Sub SeleccionarCarpeta()
         Dim dialog As New FolderBrowserDialog()
         dialog.RootFolder = Environment.SpecialFolder.Desktop
         dialog.SelectedPath = "%userprofile%\documents"
         dialog.Description = "Seleccione la carpeta para guardar los archivos"
         If dialog.ShowDialog() = DialogResult.OK Then
-            Directorio = dialog.SelectedPath & "\OneSmart-DMF\"
+            Directorio = dialog.SelectedPath & "\OneSmart-DMF"
         End If
-        My.Settings.isFirstRun = False
         My.Settings.directorio = Directorio
         My.Settings.Save()
     End Sub
 
-
-
-
+    Private Sub MostrarAyudaInicial()
+        'TODO
+    End Sub
 End Class

@@ -68,7 +68,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\OneSmart\OneSmart-DMF\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\OneSmart\OneSmart-DMF")>  _
         Public Property directorio() As String
             Get
                 Return CType(Me("directorio"),String)
