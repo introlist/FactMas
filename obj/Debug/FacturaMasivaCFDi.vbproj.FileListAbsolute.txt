@@ -1,0 +1,11 @@
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\bin\Debug\FacturaMasiva.exe.config
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\bin\Debug\FacturaMasiva.exe
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\bin\Debug\FacturaMasiva.pdb
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\bin\Debug\FacturaMasiva.xml
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasivaCFDi.vbprojResolveAssemblyReference.cache
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasiva.Form1.resources
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasiva.Resources.resources
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasivaCFDi.vbproj.GenerateResource.Cache
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasiva.exe
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasiva.xml
+C:\Users\Demon\Documents\Visual Studio 2015\Projects\WindowsApplication1\WindowsApplication1\obj\Debug\FacturaMasiva.pdb
