@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("WindowsApplication1")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("WindowsApplication1")>
+<Assembly: AssemblyTitle("OneSmart Descarga XML SAT")>
+<Assembly: AssemblyDescription("Aplicación de descarga masiva CFDi XML")>
+<Assembly: AssemblyCompany("OneSmart Soluciones")>
+<Assembly: AssemblyProduct("OneSmart Descarga XML SAT")>
 <Assembly: AssemblyCopyright("Copyright ©  2017")>
 <Assembly: AssemblyTrademark("")>
 

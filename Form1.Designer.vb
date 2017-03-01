@@ -26,9 +26,11 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.wb = New System.Windows.Forms.WebBrowser()
         Me.ListEnlacesFacs = New System.Windows.Forms.ListBox()
         Me.GroupAcciones = New System.Windows.Forms.GroupBox()
+        Me.BtnCarpeta = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BtnDescarga = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -37,8 +39,8 @@ Partial Class Form1
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaInicialToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BtnCarpeta = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.ParámetrosDeGuardadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupAcciones.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -77,6 +79,16 @@ Partial Class Form1
         Me.GroupAcciones.Text = "Acciones"
         Me.GroupAcciones.Visible = False
         '
+        'BtnCarpeta
+        '
+        Me.BtnCarpeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BtnCarpeta.Location = New System.Drawing.Point(492, 12)
+        Me.BtnCarpeta.Name = "BtnCarpeta"
+        Me.BtnCarpeta.Size = New System.Drawing.Size(220, 38)
+        Me.BtnCarpeta.TabIndex = 2
+        Me.BtnCarpeta.Text = "Cambiar Carpeta Destino"
+        Me.BtnCarpeta.UseVisualStyleBackColor = True
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -107,7 +119,7 @@ Partial Class Form1
         '
         'ConfiguraciónToolStripMenuItem
         '
-        Me.ConfiguraciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CarpetaDeGuardadoToolStripMenuItem})
+        Me.ConfiguraciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CarpetaDeGuardadoToolStripMenuItem, Me.ParámetrosDeGuardadoToolStripMenuItem})
         Me.ConfiguraciónToolStripMenuItem.Name = "ConfiguraciónToolStripMenuItem"
         Me.ConfiguraciónToolStripMenuItem.Size = New System.Drawing.Size(95, 20)
         Me.ConfiguraciónToolStripMenuItem.Text = "Configuración"
@@ -115,8 +127,8 @@ Partial Class Form1
         'CarpetaDeGuardadoToolStripMenuItem
         '
         Me.CarpetaDeGuardadoToolStripMenuItem.Name = "CarpetaDeGuardadoToolStripMenuItem"
-        Me.CarpetaDeGuardadoToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
-        Me.CarpetaDeGuardadoToolStripMenuItem.Text = "Carpeta de guardado"
+        Me.CarpetaDeGuardadoToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.CarpetaDeGuardadoToolStripMenuItem.Text = "Ubicación de descarga"
         '
         'AyudaToolStripMenuItem
         '
@@ -124,28 +136,28 @@ Partial Class Form1
         Me.AyudaToolStripMenuItem.Name = "AyudaToolStripMenuItem"
         Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.AyudaToolStripMenuItem.Text = "Ayuda"
+        Me.AyudaToolStripMenuItem.Visible = False
         '
         'AcercaDeToolStripMenuItem
         '
         Me.AcercaDeToolStripMenuItem.Name = "AcercaDeToolStripMenuItem"
-        Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de..."
         '
         'AyudaInicialToolStripMenuItem
         '
         Me.AyudaInicialToolStripMenuItem.Name = "AyudaInicialToolStripMenuItem"
-        Me.AyudaInicialToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AyudaInicialToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.AyudaInicialToolStripMenuItem.Text = "Ayuda inicial"
         '
-        'BtnCarpeta
+        'BackgroundWorker1
         '
-        Me.BtnCarpeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnCarpeta.Location = New System.Drawing.Point(492, 12)
-        Me.BtnCarpeta.Name = "BtnCarpeta"
-        Me.BtnCarpeta.Size = New System.Drawing.Size(220, 38)
-        Me.BtnCarpeta.TabIndex = 2
-        Me.BtnCarpeta.Text = "Cambiar Carpeta Destino"
-        Me.BtnCarpeta.UseVisualStyleBackColor = True
+        '
+        'ParámetrosDeGuardadoToolStripMenuItem
+        '
+        Me.ParámetrosDeGuardadoToolStripMenuItem.Name = "ParámetrosDeGuardadoToolStripMenuItem"
+        Me.ParámetrosDeGuardadoToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.ParámetrosDeGuardadoToolStripMenuItem.Text = "Parámetros de descarga"
         '
         'Form1
         '
@@ -156,9 +168,12 @@ Partial Class Form1
         Me.Controls.Add(Me.GroupAcciones)
         Me.Controls.Add(Me.ListEnlacesFacs)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "OneSmart Descarga XML SAT"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupAcciones.ResumeLayout(False)
         Me.GroupAcciones.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -181,4 +196,5 @@ Partial Class Form1
     Friend WithEvents AyudaInicialToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BtnCarpeta As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ParámetrosDeGuardadoToolStripMenuItem As ToolStripMenuItem
 End Class

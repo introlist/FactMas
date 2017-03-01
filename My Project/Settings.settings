@@ -6,7 +6,13 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="directorio" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\OneSmart\OneSmart-DMF</Value>
+      <Value Profile="(Default)">C:\OneSmart\</Value>
+    </Setting>
+    <Setting Name="agruparXML" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="crearSubcarpeta" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

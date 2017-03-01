@@ -68,13 +68,37 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\OneSmart\OneSmart-DMF")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\OneSmart\")>  _
         Public Property directorio() As String
             Get
                 Return CType(Me("directorio"),String)
             End Get
             Set
                 Me("directorio") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property agruparXML() As Boolean
+            Get
+                Return CType(Me("agruparXML"),Boolean)
+            End Get
+            Set
+                Me("agruparXML") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property crearSubcarpeta() As Boolean
+            Get
+                Return CType(Me("crearSubcarpeta"),Boolean)
+            End Get
+            Set
+                Me("crearSubcarpeta") = value
             End Set
         End Property
     End Class
@@ -88,9 +112,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.FacturaMasiva.My.MySettings
+        Friend ReadOnly Property Settings() As Global.OSDXMLS.My.MySettings
             Get
-                Return Global.FacturaMasiva.My.MySettings.Default
+                Return Global.OSDXMLS.My.MySettings.Default
             End Get
         End Property
     End Module
