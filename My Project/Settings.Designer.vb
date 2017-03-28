@@ -112,9 +112,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.OSDXMLS.My.MySettings
+        Friend ReadOnly Property Settings() As Global.OneSmartDM.My.MySettings
             Get
-                Return Global.OSDXMLS.My.MySettings.Default
+                Return Global.OneSmartDM.My.MySettings.Default
             End Get
         End Property
     End Module
